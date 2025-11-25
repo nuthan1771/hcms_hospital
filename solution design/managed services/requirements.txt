@@ -1,0 +1,169 @@
+🧩 SCENARIO 1 (MVP – Must Implement First)
+🎯 Goal
+
+Digitize shift and leave management, track availability, and generate monthly HR shift reports (with shift allowance).
+
+Features (Scenario 1)
+1️⃣ Shift & Allowance Management
+
+Store daily shift details per employee:
+
+Morning / Afternoon / Night.
+
+Automatically count shifts for the month.
+
+Allow HR report export:
+
+Format: Excel or PDF.
+
+Includes employee name, total shifts, shift type count, total allowance = (shift count × shift allowance price).
+
+2️⃣ Leave & Comp-Off Handling
+
+Record leaves (sick, planned, etc.).
+
+Automatically suggest or allow assigning someone with comp-off to cover.
+
+Update both employees’ shift counts accordingly.
+
+3️⃣ Employee Profile & Contact Info
+
+Each employee record includes:
+
+Name, Employee ID
+
+Role (L1/L2/L3)
+
+Company email
+
+Personal phone
+
+Daily status: Working / Leave / Compoff / Holiday
+
+Availability status visible in roster view.
+
+4️⃣ Daily Status Dashboard
+
+Show all employees for today:
+
+Who is working?
+
+Who is on leave?
+
+Who is on comp-off?
+
+When arranging replacement → show only available staff.
+
+5️⃣ HR Report Generation
+
+Generate monthly summary report:
+
+Employee → Shift counts → Total allowance.
+
+Include variable allowance price (editable by lead).
+
+Export and share via email (to HR).
+
+💾 Data Model (Scenario 1)
+Table	Columns
+Employees	emp_id, name, role, company_email, personal_phone, shift_count_morning, shift_count_afternoon, shift_count_night, total_allowance, status
+Shifts	shift_id, emp_id, date, shift_type (morning/afternoon/night), status (working/leave/compoff), isReplacement (bool)
+Leaves	leave_id, emp_id, date_from, date_to, reason, approved_by
+Config	allowance_rate_morning, allowance_rate_afternoon, allowance_rate_night
+🧱 Recommended Tech Stack (for Performance + Production Feasibility)
+Layer	Recommendation	Reason
+Frontend (App)	Android (Kotlin) — modern, stable	Kotlin is preferred for new Android projects; Java version can be parallelly maintained
+Backend (Option 1 – MVP)	Firebase Firestore	Real-time sync, no server setup, easy for multi-user (lead + HR + staff)
+Backend (Option 2 – Company-ready)	Spring Boot (Java) + MySQL (or PostgreSQL) hosted on internal server or AWS	Enterprise-friendly, scalable, secure
+Auth	Firebase Auth or company’s internal SSO	For secure login
+Reporting	Generate Excel using Apache POI or PDF via iText	Compatible with HR workflows
+Notifications	Firebase Cloud Messaging	Notify leads when leave or shift change occurs
+⚙️ App Architecture
++---------------------------------------+
+|             Android App               |
+|  - Shift Dashboard                    |
+|  - Leave Management                   |
+|  - Employee Directory                 |
+|  - HR Report Generator                |
++--------------------+------------------+
+                     |
+                     v
++---------------------------------------+
+|        Firebase Firestore / API       |
+|  - Employees collection               |
+|  - Shifts collection                  |
+|  - Leaves collection                  |
+|  - Config (shift rates)               |
++---------------------------------------+
+                     |
+                     v
++---------------------------------------+
+|              HR Report                |
+|  - Auto-generated Excel/PDF           |
+|  - Email to HR (manual or auto)       |
++---------------------------------------+
+
+🧩 SCENARIO 2 (Phase 2 – Enhancement)
+🎯 Goal
+
+Automatically compare app’s shift data with employees’ time sheet to verify attendance.
+
+Features
+
+Upload or sync timesheet data.
+
+Match dates and shifts.
+
+Highlight mismatches for HR.
+
+Auto-calculate final approved shift allowance.
+
+Stack Upgrade
+
+Use backend microservice (Java Spring Boot).
+
+Schedule nightly jobs (e.g., using cron or Firebase Functions).
+
+🧩 SCENARIO 3 (Phase 3 – Productivity Reporting)
+🎯 Goal
+
+Automate daily productivity report submission and notification to manager/CEO.
+
+Features
+
+Each employee fills “tasks worked on” for the shift.
+
+Auto-capture:
+
+Issue calls handled (for L1),
+
+Deployments done (L2/L3),
+
+Alerts resolved.
+
+Generate “Daily Productivity Sheet”.
+
+Notify Manager → Auto-email CEO once approved.
+
+Stack Upgrade
+
+Add “Tasks” table and manager approval workflow.
+
+Use background jobs for scheduled report mailing.
+
+🧠 App Feasibility & Company-readiness
+Category	MVP (Scenario 1)	Production-ready
+Speed	Excellent (local + Firebase)	Excellent (API + DB)
+Scalability	10–20 users easily	100+ users (multi-team)
+Security	Firebase Auth	LDAP/SSO integration
+Maintainability	Kotlin MVVM architecture	REST API + CI/CD
+HR Integration	Manual report upload	Direct API feed to HR system
+🪄 Recommended Implementation Plan
+Step	Task	Tech
+1	Build Shift + Employee + Leave local database	Room / SQLite
+2	Add Firebase backend for sync	Firestore
+3	Implement HR Report generation	Apache POI or iText
+4	Add Comp-off Replacement logic	Kotlin logic
+5	Build notification + report share	Firebase Cloud Messaging + Email Intent
+6	(Later) Integrate with Time Sheet	Backend API
+7	(Later) Add Productivity Tracking	Firestore + Scheduled emails
