@@ -83,7 +83,7 @@ public class ShiftService {
 
     	}
     
-    @Transactional
+//    @Transactional
     public Map<String, Object> swapEmployeesBetweenDates(
             String fromEmpId, String fromEmpName, String fromDate,
             String toEmpId, String toEmpName, String toDate) {
@@ -114,6 +114,18 @@ public class ShiftService {
 
         return result;
     }
+    
+    public List<Map<String, Object>> getAllShiftData() {
+        String sql = "SELECT * FROM h_shift_management.hshift_roaster";
+        return jdbcTemplate.queryForList(sql);
+    }
+    
+    public List<Map<String, Object>> getStaffDirectory() {
+        String sql = "SELECT emp_id, name, phone_no, email, role FROM h_shift_management.hemp_personal_details";
+        return jdbcTemplate.queryForList(sql);
+    }
+
+
 
  
 

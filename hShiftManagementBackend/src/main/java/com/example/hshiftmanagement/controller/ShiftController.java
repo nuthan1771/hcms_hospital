@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "*") // allow requests from any origin
 @RestController
 @RequestMapping("/shift")
 public class ShiftController {
@@ -29,7 +30,6 @@ public class ShiftController {
 
     @GetMapping("/report")
     public List<Map<String, Object>> getMonthlyReport(@RequestParam String month) {
-        // month format: "2025-10"
         return shiftService.getMonthlyReport(month);
     }
     
@@ -37,7 +37,6 @@ public class ShiftController {
     public List<Map<String, Object>> getSwappableEmployees(
             @RequestParam String empId,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") String date) {
-
         return shiftService.getSwappableEmployees(empId, date);
     }
     
@@ -52,6 +51,14 @@ public class ShiftController {
                 request.getToDate()
         );
     }
-
-
+    
+    @GetMapping("/shift-data")
+    public List<Map<String, Object>> getAllShiftData() {
+        return shiftService.getAllShiftData();
+    }
+    
+    @GetMapping("/staff-directory")
+    public List<Map<String, Object>> getStaffDirectory() {
+        return shiftService.getStaffDirectory();
+    }
 }
