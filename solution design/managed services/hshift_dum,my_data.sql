@@ -1,29 +1,29 @@
 -- December Full Month Shift Roster with Day Name
-INSERT INTO hemp_personal_details 
+INSERT INTO emp_personal_details 
 (emp_id, name, phone_no, email, role, project_id)
 VALUES
-('EMP001', 'Anita Rao', '9876543210', 'anita.rao@hospital.com', 'L3', 'PROJ01'),
-('EMP002', 'Divya Shetty', '9876543211', 'divya.shetty@hospital.com', 'L2', 'PROJ01'),
-('EMP003', 'Neha Sharma', '9876543212', 'neha.sharma@hospital.com', 'L1', 'PROJ02'),
-('EMP004', 'Kavya Nair', '9876543213', 'kavya.nair@hospital.com', 'L2', 'PROJ02'),
-('EMP005', 'Riya Joseph', '9876543214', 'riya.joseph@hospital.com', 'L1', 'PROJ03');
+('EMP001', 'Anita Rao', '9876543210', 'anita.rao@isteer.com', 'L3', 'PROJ01'),
+('EMP002', 'Divya Shetty', '9876543211', 'divya.shetty@isteer.com', 'L2', 'PROJ01'),
+('EMP003', 'Neha Sharma', '9876543212', 'neha.sharma@isteer.com', 'L1', 'PROJ02'),
+('EMP004', 'Kavya Nair', '9876543213', 'kavya.nair@isteer.com', 'L2', 'PROJ02'),
+('EMP005', 'Riya Joseph', '9876543214', 'riya.joseph@isteer.com', 'L1', 'PROJ03');
 
 
-INSERT INTO hproject_details 
+INSERT INTO project_details 
 (project_id, project_name, project_manager_id)
 VALUES
-('PROJ01', 'ICU - Intensive Care Unit', 'EMP001'),   -- L3 senior nurse
-('PROJ02', 'General Ward', 'EMP004'),                -- L2 nurse
-('PROJ03', 'Emergency Care', 'EMP002');              -- L2 nurse
+('PROJ01', 'NETWORK International', 'EMP001'),   -- L3 senior nurse
+('PROJ02', 'JSW', 'EMP004'),                -- L2 nurse
+('PROJ03', 'HSC', 'EMP002');              -- L2 nurse
 
 
-INSERT INTO hshift_roaster (emp_id, emp_name, current_shift, date, month, day) VALUES
+INSERT INTO shift_roaster (emp_id, emp_name, current_shift, date, month, day) VALUES
 -- Week 1 : Dec 1–7 (Shift 1)
 ('EMP001','Anita Rao',1,'2025-12-01',12,'Monday'),
-('EMP002','Divya Shetty',1,'2025-12-01',12,'Monday'),
-('EMP003','Neha Sharma',1,'2025-12-01',12,'Monday'),
+('EMP002','Divya Shetty',2,'2025-12-01',12,'Monday'),
+('EMP003','Neha Sharma',3,'2025-12-01',12,'Monday'),
 ('EMP004','Kavya Nair',1,'2025-12-01',12,'Monday'),
-('EMP005','Riya Joseph',1,'2025-12-01',12,'Monday'),
+('EMP005','Riya Joseph',2,'2025-12-01',12,'Monday'),
 
 ('EMP001','Anita Rao',1,'2025-12-02',12,'Tuesday'),
 ('EMP002','Divya Shetty',1,'2025-12-02',12,'Tuesday'),

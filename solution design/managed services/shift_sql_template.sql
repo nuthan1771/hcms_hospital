@@ -1,8 +1,8 @@
-CREATE DATABASE h_shift_management;
-USE h_shift_management;
+CREATE DATABASE shift_management;
+USE shift_management;
 
 -- 1️⃣ Employee Personal Details
-CREATE TABLE hemp_personal_details (
+CREATE TABLE emp_personal_details (
     emp_id VARCHAR(20) PRIMARY KEY,
     name VARCHAR(100) ,
     phone_no VARCHAR(15),
@@ -10,9 +10,9 @@ CREATE TABLE hemp_personal_details (
     role VARCHAR(50),
     project_id varchar(20)
 );
-drop table hemp_personal_details;
+-- drop table emp_personal_details;
 -- 2️⃣ Shift Roaster (daily or weekly shifts)
-CREATE TABLE hshift_roaster (
+CREATE TABLE shift_roaster (
     emp_id VARCHAR(20) ,
     emp_name VARCHAR(100),
     current_shift VARCHAR(20),
@@ -20,21 +20,21 @@ CREATE TABLE hshift_roaster (
     month INT,
     day int,
     PRIMARY KEY (emp_id, date),  -- each employee can have one shift per day
-    FOREIGN KEY (emp_id) REFERENCES hemp_personal_details(emp_id)
+    FOREIGN KEY (emp_id) REFERENCES emp_personal_details(emp_id)
 );
 
 -- 3️⃣ Shift Report (monthly summary)
 
-CREATE TABLE hproject_details (
+CREATE TABLE project_details (
     project_id VARCHAR(20) PRIMARY KEY,
     project_name VARCHAR(100) ,
     project_manager_id varchar(20),
-    FOREIGN KEY (project_manager_id) REFERENCES hemp_personal_details(emp_id)
+    FOREIGN KEY (project_manager_id) REFERENCES emp_personal_details(emp_id)
     
 );
 
 
-CREATE TABLE hshift_report (
+CREATE TABLE shift_report (
     emp_id VARCHAR(20),
     emp_name VARCHAR(100),
     shift_1_count INT DEFAULT 0,
@@ -42,7 +42,7 @@ CREATE TABLE hshift_report (
     shift_3_count INT DEFAULT 0,
     month INT,
     PRIMARY KEY (emp_id, month),
-    FOREIGN KEY (emp_id) REFERENCES hemp_personal_details(emp_id)
+    FOREIGN KEY (emp_id) REFERENCES emp_personal_details(emp_id)
 );
 
 
